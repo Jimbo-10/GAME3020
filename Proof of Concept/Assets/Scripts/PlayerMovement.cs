@@ -47,10 +47,10 @@ public class PlayerMovement : MonoBehaviour
         Move();
         CheckBoundaries();
 
-        /*if (gameController.health == 0)
+        if (gameController.health == 0)
         {
             gameController.ChangeScene(3);
-        }*/
+        }
     }
 
     void Move()
