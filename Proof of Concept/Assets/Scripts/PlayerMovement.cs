@@ -20,11 +20,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     float speed;
+
+    GameController gameController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveInput = inputActions.FindAction("move");
         camera = Camera.main;
+        gameController = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
     { 
         Move();
         CheckBoundaries();
+
+        /*if (gameController.health == 0)
+        {
+            gameController.ChangeScene(3);
+        }*/
     }
 
     void Move()
@@ -52,9 +60,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Asteroid"))
+        {
+            Debug.Log("I got hit");
+            gameController.HealthChange(5);
+
+            //collision.GetComponent<AsteroidBehaviour>().DestroyingSequence();
+        }
+
+
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("I got hit");
+            gameController.HealthChange(5);
+
+            //collision.GetComponent<EnemyBehaviour>().DestroyingSequence();
         }
+
     }
 }

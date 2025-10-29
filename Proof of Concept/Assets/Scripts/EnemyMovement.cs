@@ -11,8 +11,11 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     Boundary horizontalScreenBoundary;
 
+    GameController gameController;
+
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
         Reset();
     }
 
