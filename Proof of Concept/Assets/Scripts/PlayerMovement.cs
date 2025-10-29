@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Boundary horizontalBoundary;
 
+    [SerializeField]
+    float shootingSpeed;
+
     Vector2 direction;
 
     public Camera camera;
@@ -21,13 +25,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float speed;
 
+    GameObject bulletPrefab;
+
     GameController gameController;
+    BulletManager bulletManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveInput = inputActions.FindAction("move");
         camera = Camera.main;
         gameController = FindObjectOfType<GameController>();
+        bulletManager = FindObjectOfType<BulletManager>();
+        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+
+        StartCoroutine(ShootingRoutine());
     }
 
     // Update is called once per frame
@@ -58,6 +69,13 @@ public class PlayerMovement : MonoBehaviour
         transform.position = new Vector3(positionX, positionY, transform.position.z);
     }
 
+    IEnumerator ShootingRoutine()
+    {
+        yield return new WaitForSeconds(shootingSpeed);
+        Instantiate(bulletPrefab).transform.position = transform.position;
+        bulletManager.GetBullets().transform.position = transform.position;
+        StartCoroutine(ShootingRoutine());
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Asteroid"))
@@ -65,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("I got hit");
             gameController.HealthChange(5);
 
-            //collision.GetComponent<AsteroidBehaviour>().DestroyingSequence();
+            collision.GetComponent<AsteroidBehaviour>().DestroyingSequence();
         }
 
 
@@ -74,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("I got hit");
             gameController.HealthChange(5);
 
-            //collision.GetComponent<EnemyBehaviour>().DestroyingSequence();
+            collision.GetComponent<EnemyMovement>().DestroyingSequence();
         }
 
     }

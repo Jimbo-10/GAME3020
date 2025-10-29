@@ -6,16 +6,24 @@ public class EnemyMovement : MonoBehaviour
     float speed;
 
     [SerializeField]
+    Boundary speedRange;
+
+    [SerializeField]
     Boundary verticalScreenBoundary;
 
     [SerializeField]
     Boundary horizontalScreenBoundary;
 
     GameController gameController;
+    BulletManager bulletManager;
+
+    bool IsDying = false;
+
 
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
+        bulletManager = FindObjectOfType<BulletManager>();
         Reset();
     }
 
@@ -31,10 +39,43 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (IsDying)
+        {
+            transform.Rotate(0, 0, 5);
+            transform.localScale = new Vector3(Mathf.Clamp(transform.localScale.x - 0.05f, 0, 1), Mathf.Clamp(transform.localScale.y - 0.05f, 0, 1), 1);
+            Reset();
+        }
+    }
+
+    public void DestroyingSequence()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().color = Color.red;
+        IsDying = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            DestroyingSequence();
+            bulletManager.ReturnBullets(collision.gameObject);
+            gameController.ChangeScore(5);
+        }
+    }
     private void Reset()
     {
         transform.position = new Vector3(Random.Range(horizontalScreenBoundary.min, horizontalScreenBoundary.max),
                                                           verticalScreenBoundary.max, transform.position.z);
 
+        speed = Random.Range(speedRange.min, speedRange.max);
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().color = Color.white;
+        IsDying = false;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        transform.localScale = Vector3.one;
     }
 }
