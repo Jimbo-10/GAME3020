@@ -25,6 +25,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float speed;
 
+    [SerializeField]
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip audioClip;
+
+
     GameObject bulletPrefab;
 
     GameController gameController;
@@ -80,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(bulletPrefab).transform.position = transform.position;
         bulletManager.GetBullets().transform.position = transform.position;
         StartCoroutine(ShootingRoutine());
+
+        if (audioSource != null && audioClip != null)
+        {
+            audioSource.PlayOneShot(audioClip);
+        }    
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
