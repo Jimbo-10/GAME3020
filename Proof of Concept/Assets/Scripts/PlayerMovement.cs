@@ -49,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (gameController.health == 0)
         {
+            gameController.ChangeScene(2);
+        }
+
+        if (gameController.score == 100)
+        {
             gameController.ChangeScene(3);
         }
     }

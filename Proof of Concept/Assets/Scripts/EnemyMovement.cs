@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -31,6 +32,12 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
+
+        if (gameController.score >= 50)
+        {
+            float xPos = Mathf.PingPong(Time.time * speed, horizontalScreenBoundary.max - horizontalScreenBoundary.min) + horizontalScreenBoundary.min;
+            transform.position = new Vector3(xPos, transform.position.y - speed * Time.deltaTime);
+        }
 
         if (transform.position.y < verticalScreenBoundary.min)
         {

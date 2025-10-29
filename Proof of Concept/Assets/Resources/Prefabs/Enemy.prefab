@@ -103,12 +103,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  speedRange:
+    max: 4
+    min: 1
   verticalScreenBoundary:
     max: 5.5
     min: -5.47
   horizontalScreenBoundary:
     max: 3.47
     min: -3.47
+  shootingSpeed: 1.5
 --- !u!60 &1966472693029737254
 PolygonCollider2D:
   m_ObjectHideFlags: 0

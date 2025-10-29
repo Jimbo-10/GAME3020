@@ -1258,10 +1258,6 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 7303176849139195559, guid: ff92cc47912be7a4aa53758203f263d0, type: 3}
-      propertyPath: shootingSpeed
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1318,14 +1314,6 @@ PrefabInstance:
     - target: {fileID: 1753049609283872500, guid: 81b4a7ca3147f2b4285bdb31e2749e54, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 2888061951928573494, guid: 81b4a7ca3147f2b4285bdb31e2749e54, type: 3}
-      propertyPath: speedRange.max
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2888061951928573494, guid: 81b4a7ca3147f2b4285bdb31e2749e54, type: 3}
-      propertyPath: speedRange.min
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

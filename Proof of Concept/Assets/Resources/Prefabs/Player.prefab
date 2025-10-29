@@ -108,7 +108,7 @@ MonoBehaviour:
   horizontalBoundary:
     max: 8
     min: -8
-  shootingSpeed: 0.5
+  shootingSpeed: 1
   camera: {fileID: 0}
   speed: 5
 --- !u!60 &6743757623696708797
