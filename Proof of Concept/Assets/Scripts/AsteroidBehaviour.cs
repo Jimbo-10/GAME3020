@@ -57,7 +57,7 @@ public class AsteroidBehaviour : MonoBehaviour
         {
             DestroyingSequence();
             bulletManager.ReturnBullets(collision.gameObject);
-            gameController.ChangeScore(5);
+            gameController.ChangeScore(1);
             Reset();
         }
     }

@@ -31,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     AudioClip audioClip;
 
+    bool isPoweredUp = false;
+
+    public float powerUpDuration = 5; 
 
     GameObject bulletPrefab;
 
@@ -83,15 +86,32 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator ShootingRoutine()
     {
-        yield return new WaitForSeconds(shootingSpeed);
-        Instantiate(bulletPrefab).transform.position = transform.position;
-        bulletManager.GetBullets().transform.position = transform.position;
-        StartCoroutine(ShootingRoutine());
-
-        if (audioSource != null && audioClip != null)
+        while (true)
         {
-            audioSource.PlayOneShot(audioClip);
-        }    
+            yield return new WaitForSeconds(shootingSpeed);
+            Instantiate(bulletPrefab).transform.position = transform.position;
+            bulletManager.GetBullets().transform.position = transform.position;
+            //StartCoroutine(ShootingRoutine());
+
+            if (audioSource != null && audioClip != null)
+            {
+                audioSource.PlayOneShot(audioClip);
+            }
+        }
+        
+    }
+
+    IEnumerator PowerUpRoutine()
+    {
+        isPoweredUp = true;
+
+        float oldShootingSpeed = shootingSpeed;
+        shootingSpeed *= 0.3f;
+
+        yield return new WaitForSeconds(powerUpDuration);
+
+        shootingSpeed = oldShootingSpeed;
+        isPoweredUp = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -110,6 +130,11 @@ public class PlayerMovement : MonoBehaviour
             gameController.HealthChange(5);
 
             collision.GetComponent<EnemyMovement>().DestroyingSequence();
+        }
+
+        if (collision.CompareTag("PowerUp") && !isPoweredUp)
+        {
+            StartCoroutine(PowerUpRoutine());
         }
 
     }
