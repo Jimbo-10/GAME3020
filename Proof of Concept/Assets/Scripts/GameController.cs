@@ -42,4 +42,11 @@ public class GameController : MonoBehaviour
         string healthMessage = "Health: " + health;
         healthText.text = healthMessage;
     }
+
+    public void HealthIncrease(int healthChangeAmount)
+    {
+        health += healthChangeAmount;
+        string healthMessage = "Health: " + health;
+        healthText.text = healthMessage;
+    }
 }
