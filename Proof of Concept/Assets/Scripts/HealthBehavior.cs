@@ -14,6 +14,12 @@ public class HealthBehavior : MonoBehaviour
     [SerializeField]
     float healthTimer = 15;
 
+    [SerializeField]
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip audioClip;
+
     bool IsDying = false;
 
     GameController gameController;
@@ -56,6 +62,11 @@ public class HealthBehavior : MonoBehaviour
             DestroyingSequence();
             gameController.HealthIncrease(5);
             StartCoroutine(HealthRoutine());
+
+            if (audioSource != null && audioClip != null)
+            {
+                audioSource.PlayOneShot(audioClip);
+            }
         }
     }
 

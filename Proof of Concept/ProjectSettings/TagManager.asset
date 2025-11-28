@@ -8,6 +8,7 @@ TagManager:
   - Asteroid
   - Bullet
   - Health
+  - PowerUp
   layers:
   - Default
   - TransparentFX
