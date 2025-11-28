@@ -91,7 +91,6 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSeconds(shootingSpeed);
             Instantiate(bulletPrefab).transform.position = transform.position;
             bulletManager.GetBullets().transform.position = transform.position;
-            //StartCoroutine(ShootingRoutine());
 
             if (audioSource != null && audioClip != null)
             {
@@ -118,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Asteroid"))
         {
             Debug.Log("I got hit");
-            gameController.HealthChange(5);
+            gameController.HealthChange(2);
 
             collision.GetComponent<AsteroidBehaviour>().DestroyingSequence();
         }

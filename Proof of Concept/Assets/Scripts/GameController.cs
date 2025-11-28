@@ -38,15 +38,34 @@ public class GameController : MonoBehaviour
 
     public void HealthChange(int healthChangeAmount)
     {
-        health -= healthChangeAmount;
-        string healthMessage = "Health: " + health;
-        healthText.text = healthMessage;
+        if(health > 0)
+        {
+            health -= healthChangeAmount;
+            string healthMessage = "Health: " + health;
+            healthText.text = healthMessage;
+        }
+        else
+        {
+            health -= 0;
+            string healthMessage = "Health: " + health;
+            healthText.text = healthMessage;
+        }
+        
     }
 
     public void HealthIncrease(int healthChangeAmount)
     {
-        health += healthChangeAmount;
-        string healthMessage = "Health: " + health;
-        healthText.text = healthMessage;
+        if(health < 100)
+        {
+            health += healthChangeAmount;
+            string healthMessage = "Health: " + health;
+            healthText.text = healthMessage;
+        }
+        else
+        {
+            health += 0;
+            string healthMessage = "Health: " + health;
+            healthText.text = healthMessage;
+        }
     }
 }
